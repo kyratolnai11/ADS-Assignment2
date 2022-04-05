@@ -9,6 +9,7 @@ class BinaryTreeTest
 {
   private BinarySearchTreeNode rootNode;
   private BinarySearchTree tree;
+  private BinarySearchTreeNode node70;
 
   @BeforeEach void setUP()
   {
@@ -19,7 +20,7 @@ class BinaryTreeTest
     BinarySearchTreeNode node30 = new BinarySearchTreeNode(30);
     BinarySearchTreeNode node60 = new BinarySearchTreeNode(60);
     BinarySearchTreeNode node50 = new BinarySearchTreeNode(50);
-    BinarySearchTreeNode node70 = new BinarySearchTreeNode(70);
+     node70 = new BinarySearchTreeNode(70);
 
     rootNode.addLeftChild(node20);
     rootNode.addRightChild(node60);
@@ -90,6 +91,33 @@ class BinaryTreeTest
     Integer[] array = list.toArray(new Integer[0]);
     assertArrayEquals(expected,array);
   }
+
+  @Test void isEmpty()
+  {
+    Boolean isEmpty = tree.isEmpty();
+    assertEquals(isEmpty, false);
+  }
+
+  @Test void isEmptyNewTree()
+  {
+    BinaryTree newTree = new BinaryTree();
+    Boolean isEmpty = newTree.isEmpty();
+    assertEquals(isEmpty, true);
+  }
+
+  @Test void isHeightCorrect()
+  {
+    int height = tree.height(rootNode);
+    assertEquals(height,3);
+  }
+
+  @Test void isHeightCorrectExtraLeaf()
+  {
+    node70.addRightChild(new BinaryTreeNode(100));
+    int height = tree.height(rootNode);
+    assertEquals(height,4);
+  }
+
 
 
 

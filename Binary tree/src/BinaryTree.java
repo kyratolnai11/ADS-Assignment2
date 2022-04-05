@@ -131,7 +131,7 @@ public class BinaryTree<E extends Comparable>
         leftHeight= height(node.getLeftChild());
         rightHeight = height(node.getRightChild());
 
-      int max = (leftHeight > rightHeight) ? leftHeight : rightHeight;
+      int max = Math.max(leftHeight, rightHeight);
 
       return max+1;
     }
