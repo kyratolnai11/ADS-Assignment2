@@ -31,17 +31,12 @@ public class Main
     tree.setRoot(rootNode);
 
 
-    System.out.println("--------------------------");
-    tree.insert(15);
-    tree.insert(9);
-    tree.insert(90);
-
 
     System.out.println("--------------------------");
-    tree.remove(20);
-    System.out.println("--------------------------");
 
-    ArrayList<Integer> list3 =  tree.preOrder(rootNode);
+    //System.out.println(tree.remove(60));
+
+    ArrayList<Integer> list3 =  tree.levelOrder(rootNode);
 
     for (int i=0;i<list3.size();i++)
     {

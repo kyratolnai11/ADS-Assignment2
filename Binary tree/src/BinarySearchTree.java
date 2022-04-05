@@ -85,12 +85,16 @@ public class BinarySearchTree<E extends Comparable> extends BinaryTree<E>
     return search((BinarySearchTreeNode) root.getLeftChild(), element);
   }
 
-  public void remove(E element)
+  public boolean remove(E element)
   {
-    setRoot(deleteRec((BinarySearchTreeNode) getRoot(), element));
+    if (!contains(element)) {
+      return false;
+    }
+    deleteNode( (BinarySearchTreeNode) getRoot(), element);
+    return true;
   }
 
-  public BinarySearchTreeNode deleteRec(BinarySearchTreeNode root, E element)
+  private BinarySearchTreeNode deleteRec(BinarySearchTreeNode root, E element)
   {
     if (root.getElement().compareTo(element) > 0)
       root.addLeftChild(
@@ -115,4 +119,34 @@ public class BinarySearchTree<E extends Comparable> extends BinaryTree<E>
     return root;
   }
 
+  private void deleteNode(BinarySearchTreeNode removableNode, E element)
+  {
+    if (removableNode.getElement().compareTo(element) > 0)
+    {
+      deleteNode((BinarySearchTreeNode) removableNode.getLeftChild(),
+          element);
+      return;
+    }
+    else if (removableNode.getElement().compareTo(element) < 0)
+    {
+      deleteNode((BinarySearchTreeNode) removableNode.getRightChild(),
+          element);
+      return;
+    }
+    if (removableNode.getRightChild() == null)
+    {
+      if (removableNode.getLeftChild() == null)
+      {
+        removableNode = null;
+        return;
+      }
+      removableNode = (BinarySearchTreeNode) removableNode.getLeftChild();
+    }
+
+    BinarySearchTree tempTree = new BinarySearchTree<>((BinarySearchTreeNode) removableNode.getRightChild());
+    BinarySearchTreeNode successor = search(removableNode,
+        (E) tempTree.findMin(getRoot()));
+    removableNode.setElement(successor.getElement());
+    removableNode.addRightChild(successor.getRightChild());
+  }
 }
